@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<html>
+<head>
+    {% block title %}
+        {% if news_detail %}
+            {{ news_detail.title }}
+        {% endif %}
+    {% endblock  %}
+</head>
+
+{% if news_detail %}
+    {% block news_title %}{{news_detail.title}}{% endblock %}
+    {% block ctime %}{{news_detail.created_at}}{% endblock %}
+    {% block img %}{{news_detail.img_url}}{%endblock%}
+    {% block paragraph %}{{news_detail.content}}{%endblock%}
+{% endif %}
+
+</body>
+</html>
+
+

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+<!-- <div id="news_list"></div>-->
+  {% for news in news_list %}
+    <div>
+        <td>
+        <a href='/news_detail/{{news.id}}'><h2><td> {{ news.title }}</td> </h2></a></td>
+        <img src={{ news.img_url }} alt="" width=300>
+        <td> {{ news.description }}</td>
+        <br>
+        <br>
+        <div>-------------------------------------------------------------------------------------------------------------</div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/app.js'%}"></script>
+{% endblock %}
