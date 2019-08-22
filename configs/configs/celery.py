@@ -29,8 +29,8 @@ django.setup()
 
 app.conf.CELERYBEAT_SCHEDULE = {
     'Crawler': {
-            'task': 'Auto_crawler',
-            #'task': 'tasks.Auto_crawler()',
+            #'task': 'Auto_crawler',
+            'task': 'tasks.Auto_crawler()',
             # UTC 16:00 == UTC+8 0:00 == 當天午夜檢查
             # 'schedule': crontab(minute=0, hour=16),
             'schedule': timedelta(seconds=10),
