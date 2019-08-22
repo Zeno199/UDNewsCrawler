@@ -21,4 +21,3 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'configs.settings')
 
 
 application = Cling(get_wsgi_application())
-application = DjangoWhiteNoise(application)
