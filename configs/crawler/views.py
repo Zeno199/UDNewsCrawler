@@ -39,7 +39,8 @@ class NewsList(View):
                     'created_at': news.created_at
                 }
                 news_list.append(data)
-        except:
+        except Exception as e:
+            print('Error:', e)
             news_list = None
 
         #return Response(news_list)
@@ -54,6 +55,7 @@ class News_Detail(TemplateView):
     template_name = 'news.html'
     
     def get(self, request, news_id):
+        print('Starting Detail get...')
         News = apps.get_model('crawler', 'News')
         try:
             news = News.objects.get(id = news_id)
@@ -64,7 +66,8 @@ class News_Detail(TemplateView):
                 'created_at' : news.created_at
             }
             #return render(request, self.template_name, {'news': data}) 
-        except:
+        except Exception as e:
+            print('Error:', e)
             return HttpResponseNotFound("<h1>News Not Found</h1>")
 
         return render(request, self.template_name, {'news_detail': news_detail}) 
