@@ -27,9 +27,12 @@ class NewsList(View):
     template_name = 'index.html' 
     
     def get(self, request):
-        from django.db import connection
+        
+        # Detected connected tables
+        '''from django.db import connection
         tables = connection.introspection.table_names()
-        print('tables...'+ str(tables))
+        print('tables...'+ str(tables))'''
+
         News = apps.get_model('crawler', 'News')
         try:
             latest = News.objects.order_by('-created_at')[:10]
@@ -51,7 +54,6 @@ class NewsList(View):
         #html = render_to_string( self.template_name, {'news_list': news_list} )
         #res = {'html': html}
         #return HttpResponse( simplejson.dumps(res))
-        print('newslits:', news_list)
         return render(request, self.template_name, {'news_list': news_list})
 
 class News_Detail(TemplateView): 
@@ -59,7 +61,6 @@ class News_Detail(TemplateView):
     template_name = 'news.html'
     
     def get(self, request, news_id):
-        print('Starting Detail get...')
         News = apps.get_model('crawler', 'News')
         try:
             news = News.objects.get(id = news_id)
