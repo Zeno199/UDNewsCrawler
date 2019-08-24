@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'configs.wsgi.application'
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
+# for local
 '''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
