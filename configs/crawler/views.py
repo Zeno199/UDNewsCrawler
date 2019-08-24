@@ -28,7 +28,7 @@ class NewsList(View):
     def get(self, request):
         from django.db import connection
         tables = connection.introspection.table_names()
-        print('tables...'+ tables)
+        print('tables...'+ str(tables))
         News = apps.get_model('crawler', 'News')
         try:
             latest = News.objects.order_by('-created_at')[:10]
