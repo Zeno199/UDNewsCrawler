@@ -11,6 +11,8 @@ import json
 #from rest_framework.renderers import JSONRenderer
 from django.views.generic import View
 import simplejson
+from crawler.models import News
+
 # Create your views here.
 
 class HelloView(TemplateView): 
@@ -29,7 +31,7 @@ class NewsList(View):
         from django.db import connection
         tables = connection.introspection.table_names()
         print('tables...'+ str(tables))
-        News = apps.get_model('crawler', 'News')
+        #News = apps.get_model('crawler', 'News')
         try:
             latest = News.objects.order_by('-created_at')[:10]
             news_list = []
