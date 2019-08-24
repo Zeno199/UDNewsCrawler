@@ -127,6 +127,7 @@ STATICFILES_DIRS = [
 ]
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-
+from django.db import connection
+tables = connection.introspection.table_names()
+print('set tables...'+ str(tables))
 
