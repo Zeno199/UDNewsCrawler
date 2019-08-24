@@ -46,6 +46,7 @@ class NewsList(View):
         #html = render_to_string( self.template_name, {'news_list': news_list} )
         #res = {'html': html}
         #return HttpResponse( simplejson.dumps(res))
+        print(news_list)
         return render(request, self.template_name, {'news_list': news_list})
 
 class News_Detail(TemplateView): 
