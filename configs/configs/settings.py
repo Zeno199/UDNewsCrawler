@@ -9,11 +9,17 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+from __future__ import absolute_import
 
 import os
 
 # add for heroku
 import dj_database_url
+
+# add for celery
+from celery.schedules import crontab
+from datetime import timedelta
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,6 +35,9 @@ SECRET_KEY = '7=2twr8y)-um88(ks@&qd(&1_)3a532!ckk&ow*a2u_3$khdwr'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# amqp://guest:**@localhost:5672//
+#BROKER_URL = 'pyamqp://guest:guest@wlocalhost:5672//' #read docs
+CELERY_IMPORTS = ('crawler.tasks', )
 
 
 # Application definition
@@ -41,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crawler',
+    'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -80,16 +90,19 @@ WSGI_APPLICATION = 'configs.wsgi.application'
 
 
 # add for heroku
+'''
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+'''
 
 # for local
-'''DATABASES = {
+
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}'''
+}
 
 
 # Password validation
@@ -141,3 +154,12 @@ STATICFILES_DIRS = [
 # add for heroku
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# for celery
+CELERYBEAT_SCHEDULE = {
+    'AutoCrawler': {
+                        'task': 'Auto_crawler',  # We are going to create a email_sending_method later in this post.
+                        'schedule': timedelta(minutes=30),
+                        },
+    }
+    
+CELERY_ALWAYS_EAGER = True
